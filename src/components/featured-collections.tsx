@@ -239,7 +239,7 @@ function CollectionCard({
       >
         {/* Full Background Image */}
         <img
-          src={collection.image || "/placeholder.svg"}
+          src={collection.image ?? "/placeholder.svg"}
           alt={collection.name}
           className="w-full h-full object-cover"
         />
