@@ -25,10 +25,10 @@ export function MainDashboard() {
             <main className="px-6 py-6 space-y-10  w-[calc(100vw-10vw)] mx-auto">
               <HeroCarousel />
               <FeaturedDrops />
-              <TopMoversToday />
+              {/* <TopMoversToday /> */}
               <FeaturedCollections />
               <TrendingCollections />
-              {/* <HighestWeeklySales /> */}
+              <HighestWeeklySales />
               <TrendingTokens />
               <NFT101Section />
             </main>

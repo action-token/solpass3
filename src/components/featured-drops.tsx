@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { useQuery } from "@tanstack/react-query"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { BadgeCheck, CheckCircle, ChevronLeft, ChevronRight, Verified } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -24,7 +24,7 @@ const fetchFeaturedDrops = async () => {
       id: 2,
       name: "DDUST by jiwa",
       subtitle: "",
-      price: "",
+      price: "0.029 ETH",
       time: "July 8 at 11:00 PM GMT+6",
       image: "https://picsum.photos/200/300",
     },
@@ -32,7 +32,7 @@ const fetchFeaturedDrops = async () => {
       id: 3,
       name: "Pixel Art Blocks",
       subtitle: "",
-      price: "",
+      price: "0.029 ETH",
       time: "July 7 at 1:00 AM GMT+6",
       image: "https://picsum.photos/200/300",
     },
@@ -40,7 +40,7 @@ const fetchFeaturedDrops = async () => {
       id: 4,
       name: "Abstractio",
       subtitle: "",
-      price: "",
+      price: "0.029 ETH",
       time: "July 10 at 9:00 PM GMT+6",
       image: "https://picsum.photos/200/300",
     },
@@ -48,7 +48,7 @@ const fetchFeaturedDrops = async () => {
       id: 5,
       name: "Pepemons",
       subtitle: "",
-      price: "",
+      price: "0.029 ETH",
       time: "July 8 at 11:00 PM GMT+6",
       image: "https://picsum.photos/200/300",
     },
@@ -56,7 +56,7 @@ const fetchFeaturedDrops = async () => {
       id: 6,
       name: "Extra Drop 1",
       subtitle: "",
-      price: "",
+      price: "0.029 ETH",
       time: "July 9 at 2:00 PM GMT+6",
       image: "https://picsum.photos/200/300",
     },
@@ -167,8 +167,8 @@ export function FeaturedDrops() {
             }}
           >
             {drops?.map((drop) => (
-              <div key={drop.id} className="flex-shrink-0" style={{ width: `calc(${100 / itemsPerPage}% - 12px)` }}>
-                <Card
+              <div key={drop.id} className="flex-shrink-0 " style={{ width: `calc(${100 / itemsPerPage}% - 12px)` }}>
+                {/* <Card
                   className="bg-[#1a202c] border-[#353840] overflow-hidden hover:bg-[#2d3748] transition-all cursor-pointer rounded-xl w-full h-full"
                   onClick={() => handleDropClick(drop.name)}
                 >
@@ -184,6 +184,30 @@ export function FeaturedDrops() {
                     {drop.subtitle && <p className="text-[#10b981] text-xs font-medium mb-1">{drop.subtitle}</p>}
                     {drop.price && <p className="text-white text-xs font-medium mb-1">{drop.price}</p>}
                     <p className="text-[#8a939b] text-xs">{drop.time}</p>
+                  </div>
+                </Card> */}
+                <Card className="bg-gray-800 border-gray-700 rounded-xl overflow-hidden flex-1 h-50 relative p-0 transform transition-transform duration-300 hover:scale-102 "
+                  onClick={() => handleDropClick(drop.name)}
+                >
+                  {/* Full Background Image */}
+                  <img
+                    src={drop.image || "/placeholder.svg"}
+                    alt={drop.name}
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Bottom Gradient Overlay with Text */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/60 to-transparent px-4 py-2 pt-8">
+                    <div className="flex items-center gap-1 ">
+                      <h3 className="text-white font-semibold text-sm">{drop.name}</h3>
+                      <BadgeCheck className="w-4 h-4 text-blue-400 " />
+                    </div>
+                    <div className="flex items-center gap-4 text-xs">
+                      <span className="text-gray-300">Floor price:</span>
+                      <span className="text-white font-medium">{drop.price}</span>
+
+                      <span className="text-red-400">-2.6%</span>
+                    </div>
                   </div>
                 </Card>
               </div>

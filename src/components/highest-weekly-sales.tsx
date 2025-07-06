@@ -1,9 +1,10 @@
 "use client"
 
-import { CheckCircle } from "lucide-react"
+import { BadgeCheck, CheckCircle } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { useQuery } from "@tanstack/react-query"
 import { Skeleton } from "@/components/ui/skeleton"
+import Image from "next/image"
 
 const fetchHighestSales = async () => {
   await new Promise((resolve) => setTimeout(resolve, 700))
@@ -80,49 +81,70 @@ export function HighestWeeklySales() {
 
   return (
     <section>
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-white">Highest Weekly Sales</h2>
-      </div>
+      <div className="">
+        <h2 className="text-white text-xl font-semibold mb-6">Highest Weekly Sales</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {/* Collection Info */}
-        <div className="lg:col-span-1">
-          <Card className="bg-[#1a202c] border-[#353840] p-4 rounded-xl h-full">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed] flex items-center justify-center mb-3">
-              <span className="text-white text-lg">🐛</span>
-            </div>
-            <div className="flex items-center space-x-1 mb-2">
-              <h3 className="text-lg font-bold text-white">{data.collection.name}</h3>
-              {data.collection.verified && <CheckCircle className="w-4 h-4 text-[#2081e2]" />}
-            </div>
-            <p className="text-[#8a939b] text-xs mb-3">
-              7d sales: <span className="text-white font-medium">{data.collection.sales}</span>{" "}
-              <span className="text-[#10b981]">{data.collection.change}</span>
-            </p>
-            <p className="text-[#8a939b] text-xs">{data.collection.description}</p>
-          </Card>
-        </div>
+        {/* Card with background image and blur */}
+        <Card className="relative overflow-hidden rounded-xl border border-gray-700 p-0">
 
-        {/* NFT Items */}
-        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-3">
-          {data.items.map((item) => (
-            <Card
-              key={item.id}
-              className="bg-[#1a202c] border-[#353840] rounded-xl overflow-hidden hover:bg-[#2d3748] transition-all cursor-pointer"
-            >
-              <div className="aspect-square w-full bg-gradient-to-br from-[#4a5568] to-[#2d3748] flex items-center justify-center">
-                <div className="w-20 h-16 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] rounded-lg flex items-center justify-center">
-                  <span className="text-white text-2xl">🐛</span>
+          {/* Blurred Background Image */}
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center  opacity-100"
+            style={{ backgroundImage: `url(${data.items[0]?.image})` }}
+          />
+
+          {/* Foreground Content */}
+          <div className="relative z-10 p-6 grid grid-cols-6 gap-4 bg-gray-900/60 backdrop-blur-sm rounded-xl">
+
+            {/* Left Section: Collection Info (2 columns) */}
+            <div className="col-span-2">
+              <div className="flex-shrink-0 w-full">
+                <div className="flex flex-col gap-4 mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 bg-amber-400 rounded" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-white font-semibold text-lg">Larvva Lads</h3>
+                      <BadgeCheck className="w-4 h-4 text-blue-400 " />
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      <span className="text-white font-medium">7d sales: 115,587</span>
+                      <span className="text-green-400 ml-2">+15.8%</span>
+                    </div>
+                  </div>
                 </div>
+                <p className="text-gray-400 text-sm mt-8">Opepen and Larva Lads - the ultimate DNA!</p>
               </div>
-              <div className="p-3">
-                <h4 className="font-medium text-white text-sm mb-1">{item.name}</h4>
-                <p className="text-[#8a939b] text-xs">{item.price}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
+            </div>
+
+            {/* Right Section: Cards (4 columns, 3 grid items) */}
+            <div className="col-span-4 grid grid-cols-3 gap-4">
+              {data.items.map((item) => (
+                <Card
+                  key={item.id}
+                  className="bg-gray-700 border border-gray-600 rounded-lg overflow-hidden p-0 gap-0"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    width={200}
+                    height={200}
+                    className="object-cover rounded-t-lg w-full aspect-square"
+                  />
+                  <div className="p-3">
+                    <h4 className="text-white font-medium text-sm mb-1">{item.name}</h4>
+                    <p className="text-gray-400 text-xs">{item.price}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+          </div>
+        </Card>
       </div>
     </section>
+
+
   )
 }
